@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: toggle-app
+  name: toggle-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: toggle-app
+  template:
+    metadata:
+      labels:
+        app: toggle-app
+    spec:
+      containers:
+      - image: java-toggles
+        imagePullPolicy: IfNotPresent
+        name: toggle-app
+        ports:
+        - containerPort: 8080
+        env:
+        - name: UNLEASH_APIURL
+          valueFrom:
+            secretKeyRef:
+              name: toogleapp-api
+              key: UNLEASH_APIURL  
+        - name: UNLEASH_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: toogleapp-api
+              key: UNLEASH_TOKEN                                      
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: toggle-app
+  name: toogle-app-svc
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: toggle-app
+  type: NodePort

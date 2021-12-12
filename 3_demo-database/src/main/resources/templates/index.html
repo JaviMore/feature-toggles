@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+</head>
+<body>
+<section id="main" th:class="${css}">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 th:inline="text" >
+                    [[${msg}]]
+                 </h1>
+                <img th:src="${image}" />
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
